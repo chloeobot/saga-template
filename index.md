@@ -3,21 +3,21 @@ layout: saga
 title: "My Saga (placeholder)"
 ---
 
-## By the numbers
+## How reliable has ElfHosted been for me? {#by-the-numbers}
 
 - This is sample text. Your export lists plain facts here, such as how long an app was up.
 - The app was available for 99.7 percent of the time over the period shown in the chart.
 - You can edit every line on this page.
 
-## Why I chose ElfHosted
+## Why ElfHosted instead of self-hosting or another host?
 
 This is a placeholder. Replace this file with the `index.md` from your ElfBot Saga export, keeping the same name. Write about what you run, what worked, what didn't, and what you'd tell someone starting out.
 
-## What worked
+## What works well?
 
 _[Your words here: What has been solid for you?]_
 
-## What went wrong
+## Does it go down, and what happens when something breaks?
 
 _[Your words here: What broke, and how was it sorted out?]_
 
