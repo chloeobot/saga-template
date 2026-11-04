@@ -1,31 +1,68 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en' }}">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {%- assign saga = site.data.saga -%}
-  {%- assign page_title = page.title | default: saga.title -%}
-  <title>{{ page_title | escape }}{% if page.layout == 'chapter' and saga.title %} | {{ saga.title | escape }}{% endif %}</title>
   <meta name="color-scheme" content="light dark">
-  {%- if saga.canonical_url and saga.canonical_url != "" %}
-  <link rel="canonical" href="{{ saga.canonical_url | escape }}">
+  {%- assign saga = site.data.saga -%}
+  {%- assign style = saga.style -%}
+  {%- unless style == 'long-read' or style == 'uptime-log' or style == 'at-a-glance' -%}{%- assign style = 'long-read' -%}{%- endunless -%}
+  {%- assign palette = saga.palette -%}
+  {%- unless palette == 'forest' or palette == 'dusk' or palette == 'ember' or palette == 'tide' or palette == 'graphite' -%}{%- assign palette = 'forest' -%}{%- endunless -%}
+  {%- comment -%}
+    jekyll-seo-tag reads page front matter, which an export does not carry.
+    Render it once, then fill in the Saga's description and author, and the
+    optional canonical_url, so each tag appears exactly once.
+  {%- endcomment -%}
+  {%- capture seo_out %}{% seo %}{% endcapture -%}
+  {%- assign desc = page.description | default: saga.description -%}
+  {%- if desc and desc != "" and seo_out contains '"headline":' and seo_out != nil -%}
+    {%- unless seo_out contains '"description":' -%}
+      {%- capture jd %}"description":{{ desc | strip_html | jsonify }},"headline":{% endcapture -%}
+      {%- assign seo_out = seo_out | replace: '"headline":', jd -%}
+    {%- endunless -%}
+  {%- endif -%}
+  {%- if saga.author and saga.author != "" and page.author == nil and seo_out contains '"headline":' -%}
+    {%- unless seo_out contains '"author":' -%}
+      {%- capture ja %}"author":{"@type":"Person","name":{{ saga.author | jsonify }}},"headline":{% endcapture -%}
+      {%- assign seo_out = seo_out | replace: '"headline":', ja -%}
+    {%- endunless -%}
+  {%- endif -%}
+  {%- if page.url == '/' and saga.canonical_url and saga.canonical_url != "" -%}
+    {%- assign canon_parts = seo_out | split: '<link rel="canonical" href="' -%}
+    {%- if canon_parts.size == 2 -%}
+      {%- assign canon_rest = canon_parts[1] | split: '" />' -%}
+      {%- if canon_rest.size > 1 -%}
+        {%- capture seo_out %}{{ canon_parts[0] }}<link rel="canonical" href="{{ saga.canonical_url | escape }}" />{% for r in canon_rest offset:1 %}{{ r }}{% unless forloop.last %}" />{% endunless %}{% endfor %}{% endcapture -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endif -%}
+  {{ seo_out }}
+  {%- if desc and desc != "" and seo_out != nil -%}
+    {%- unless seo_out contains 'name="description"' %}
+  <meta name="description" content="{{ desc | strip_html | escape }}">
+  <meta property="og:description" content="{{ desc | strip_html | escape }}">
+  <meta name="twitter:description" content="{{ desc | strip_html | escape }}">
+    {%- endunless -%}
   {%- endif %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
   <link rel="stylesheet" href="{{ 'assets/saga.css' | relative_url }}">
 </head>
-<body>
+<body class="saga" data-style="{{ style }}" data-palette="{{ palette }}">
   <a class="skip" href="#content">Skip to content</a>
-  <div class="wrap">
-    <aside class="disclosure" role="note" aria-label="Disclosure">
-      <p>I received ElfHosted hosting credit for publishing an honest account. Sam, ElfHosted's assistant, helped with technical evidence and drafting. My opinions are my own, and the credit did not depend on a positive review.</p>
-    </aside>
+  <div class="seal" role="note" aria-label="Disclosure">
+    <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="24" cy="24" r="17" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3"/><path d="M15 31c2-10 9-15 19-16-1 9-6 16-16 17l-3-1z" fill="currentColor"/><path d="M17 31c4-5 8-8 13-11" stroke="var(--tint)" stroke-width="1.5" fill="none"/></svg>
+    <p>I received ElfHosted hosting credit for publishing an honest account. Sam, ElfHosted's assistant, helped with technical evidence and drafting. My opinions are my own, and the credit did not depend on a positive review.</p>
+  </div>
 
-    <main id="content">
-      {{ content }}
-    </main>
+  <main id="content" class="body">
+    {{ content }}
 
-    <footer class="site-footer">
+    <footer class="foot">
       <p>Published by the author on their own site. Made with the <a href="https://github.com/elfhosted/saga-template">ElfHosted Saga template</a>.</p>
     </footer>
-  </div>
+  </main>
 </body>
 </html>

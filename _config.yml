@@ -10,6 +10,9 @@ kramdown:
   syntax_highlighter: rouge
 permalink: pretty
 timezone: UTC
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
 exclude:
   - README.md
   - LICENSE
@@ -17,3 +20,5 @@ exclude:
   - Gemfile.lock
   - vendor
   - .gitignore
+  - share
+  - saga-drafts

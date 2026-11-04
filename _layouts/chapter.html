@@ -10,9 +10,9 @@ layout: default
 <article class="chapter">
   <p class="back"><a href="{{ '/' | relative_url }}">&larr; Back to {{ saga.title | default: "the Saga" | escape }}</a></p>
   <header class="article-header">
-    <h1>{{ page.title | escape }}</h1>
+    <h1 class="t">{{ page.title | escape }}</h1>
     {%- if page.date %}
-    <p class="meta"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%-d %B %Y" }}</time></p>
+    <p class="by"><time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%-d %B %Y" }}</time></p>
     {%- endif %}
   </header>
 

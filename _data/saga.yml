@@ -1,5 +1,7 @@
+# Sample values. Your ElfBot Saga export replaces this file.
 schema: 1
 title: "My Saga (placeholder)"
+description: "A placeholder account of running apps on ElfHosted. Replace it with your own."
 author: "Your name or pseudonym"
 started: 2026-12-01
 updated: 2026-12-15
@@ -8,3 +10,7 @@ topics:
   - sample
 canonical_url: ""
 disclosure_mode: infrastructure
+# Layout: long-read, uptime-log or at-a-glance
+style: long-read
+# Palette: forest, dusk, ember, tide or graphite
+palette: forest

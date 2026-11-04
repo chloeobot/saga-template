@@ -2,17 +2,20 @@
 layout: default
 ---
 {%- assign saga = site.data.saga -%}
+{%- assign style = saga.style -%}
+{%- unless style == 'long-read' or style == 'uptime-log' or style == 'at-a-glance' -%}{%- assign style = 'long-read' -%}{%- endunless -%}
 {%- assign asset_prefix = 'assets/' | relative_url -%}
 {%- assign src_from = 'src="assets/' -%}
 {%- assign src_to = 'src="' | append: asset_prefix -%}
 {%- assign href_from = 'href="assets/' -%}
 {%- assign href_to = 'href="' | append: asset_prefix -%}
-<article class="saga">
+{%- assign body = content | replace: src_from, src_to | replace: href_from, href_to -%}
+<article class="saga-home">
   <header class="article-header">
-    <h1>{{ page.title | default: saga.title | escape }}</h1>
-    <p class="meta">
-      {%- if saga.author and saga.author != "" %}<span class="author">By {{ saga.author | escape }}</span>{% endif %}
-      {%- if saga.started %}<span>Started <time datetime="{{ saga.started | date: '%Y-%m-%d' }}">{{ saga.started | date: "%-d %B %Y" }}</time></span>{% endif %}
+    <p class="kicker">Saga{% if saga.started %} &middot; since <time datetime="{{ saga.started | date: '%Y-%m-%d' }}">{{ saga.started | date: "%B %Y" }}</time>{% endif %}</p>
+    <h1 class="t">{{ page.title | default: saga.title | escape }}</h1>
+    <p class="by">
+      {%- if saga.author and saga.author != "" %}<span>By {{ saga.author | escape }}</span>{% endif %}
       {%- if saga.updated %}<span>Updated <time datetime="{{ saga.updated | date: '%Y-%m-%d' }}">{{ saga.updated | date: "%-d %B %Y" }}</time></span>{% endif %}
     </p>
     {%- if saga.topics and saga.topics.size > 0 %}
@@ -24,22 +27,44 @@ layout: default
     {%- endif %}
   </header>
 
-  <div class="prose">
-    {{ content | replace: src_from, src_to | replace: href_from, href_to }}
+  {%- if style == 'at-a-glance' and body contains '<h2' %}
+  {%- assign pieces = body | split: '<h2' %}
+  <div class="prose cards">
+    {%- for piece in pieces %}
+    {%- if forloop.first %}
+    {%- assign pre = piece | strip %}
+    {%- if pre != '' %}
+    <div class="card wide">{{ pre }}</div>
+    {%- endif %}
+    {%- else %}
+    {%- assign halves = piece | split: '<p><img' %}
+    {%- assign cls = "card" %}
+    {%- if halves[0] contains 'id="by-the-numbers"' %}{% assign cls = "card wide numbers" %}{% endif %}
+    <section class="{{ cls }}"><h2{{ halves[0] }}</section>
+    {%- if halves.size > 1 %}
+    <section class="card wide chart-card"><p><img{% for h in halves offset:1 %}{{ h }}{% unless forloop.last %}<p><img{% endunless %}{% endfor %}</section>
+    {%- endif %}
+    {%- endif %}
+    {%- endfor %}
   </div>
+  {%- else %}
+  <div class="prose">
+    {{ body }}
+  </div>
+  {%- endif %}
 
   {%- assign chapters = site.pages | where_exp: "p", "p.path contains 'chapters/'" | where_exp: "p", "p.layout == 'chapter'" | sort: "path" | reverse %}
   {%- if chapters.size > 0 %}
   <section class="chapters" aria-labelledby="chapters-heading">
     <h2 id="chapters-heading">Chapters</h2>
-    <ul>
+    <ol class="timeline">
       {%- for chapter in chapters %}
       <li>
         <a href="{{ chapter.url | relative_url }}">{{ chapter.title | escape }}</a>
-        {%- if chapter.date %} <time datetime="{{ chapter.date | date: '%Y-%m-%d' }}">{{ chapter.date | date: "%-d %B %Y" }}</time>{% endif %}
+        {%- if chapter.date %}<time datetime="{{ chapter.date | date: '%Y-%m-%d' }}">{{ chapter.date | date: "%-d %B %Y" }}</time>{% endif %}
       </li>
       {%- endfor %}
-    </ul>
+    </ol>
   </section>
   {%- endif %}
 </article>

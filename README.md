@@ -12,7 +12,23 @@ A Saga is your own written account of running apps on ElfHosted. You draft it wi
    - `assets/` (your charts, as `.svg` files)
 
    Delete `chapters/2026-12.md` and `assets/sample-availability.svg` if your export doesn't replace them. Leave `assets/saga.css` and the `_layouts` folder alone.
+
+   Your export may also include a `share/` folder of copies you can paste into other blogs and a `saga-drafts/` folder. This template never publishes either one, so they stay private even though they sit in your repository.
 3. In your repository, go to **Settings**, then **Pages**. Under **Build and deploy**, choose **Deploy from a branch**, pick the `main` branch and the `/ (root)` folder, then save. Your site appears at `https://USERNAME.github.io/REPO` within a minute or two.
+
+## Choose a look
+
+Open `_data/saga.yml` and set two lines:
+
+```
+style: long-read
+palette: forest
+```
+
+- `style` is `long-read` (an essay), `uptime-log` (a log of short entries with the chart up front) or `at-a-glance` (cards in a grid).
+- `palette` is `forest`, `dusk`, `ember`, `tide` or `graphite`. Each one has a light and a dark version that follow the reader's device.
+
+If a value is missing or misspelled, the site uses `long-read` and `forest`. Your `description` in the same file is what search engines and link previews show.
 
 ## Add a chapter
 
