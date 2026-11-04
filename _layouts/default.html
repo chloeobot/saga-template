@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- assign saga = site.data.saga -%}
+  {%- assign page_title = page.title | default: saga.title -%}
+  <title>{{ page_title | escape }}{% if page.layout == 'chapter' and saga.title %} | {{ saga.title | escape }}{% endif %}</title>
+  <meta name="color-scheme" content="light dark">
+  {%- if saga.canonical_url and saga.canonical_url != "" %}
+  <link rel="canonical" href="{{ saga.canonical_url }}">
+  {%- endif %}
+  <link rel="stylesheet" href="{{ 'assets/saga.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <div class="wrap">
+    <aside class="disclosure" role="note" aria-label="Disclosure">
+      <p>I received ElfHosted hosting credit for publishing an honest account. Sam, ElfHosted's assistant, helped with technical evidence and drafting. My opinions are my own, and the credit did not depend on a positive review.</p>
+    </aside>
+
+    <main id="content">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <p>Published by the author on their own site. Made with the <a href="https://github.com/elfhosted/saga-template">ElfHosted Saga template</a>.</p>
+    </footer>
+  </div>
+</body>
+</html>

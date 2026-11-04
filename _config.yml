@@ -1,0 +1,19 @@
+# Leave baseurl and url empty. GitHub Pages fills them in for project pages
+# (username.github.io/repo), and every link in the layouts uses relative_url.
+baseurl: ""
+url: ""
+lang: en
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+permalink: pretty
+timezone: UTC
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .gitignore
