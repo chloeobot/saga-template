@@ -85,6 +85,10 @@ body.saga { margin: 0; background: var(--bg); color: var(--ink); font-family: va
 .timeline time { display: block; font-size: 13px; color: var(--muted); font-family: var(--mono); }
 
 /* ---------- Footer ---------- */
+.share { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 40px; font-size: 14px; }
+.share span { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.share a { color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.share a:hover, .share a:focus-visible { border-color: var(--accent); color: var(--accent); }
 .foot { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 14px; font-size: 13px; color: var(--muted); }
 .foot p { margin: 0; }
 
