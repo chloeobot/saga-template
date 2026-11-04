@@ -8,7 +8,7 @@
   <title>{{ page_title | escape }}{% if page.layout == 'chapter' and saga.title %} | {{ saga.title | escape }}{% endif %}</title>
   <meta name="color-scheme" content="light dark">
   {%- if saga.canonical_url and saga.canonical_url != "" %}
-  <link rel="canonical" href="{{ saga.canonical_url }}">
+  <link rel="canonical" href="{{ saga.canonical_url | escape }}">
   {%- endif %}
   <link rel="stylesheet" href="{{ 'assets/saga.css' | relative_url }}">
 </head>
