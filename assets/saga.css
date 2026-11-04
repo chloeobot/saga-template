@@ -89,8 +89,10 @@ body.saga { margin: 0; background: var(--bg); color: var(--ink); font-family: va
 .foot p { margin: 0; }
 
 /* ======================= Layout: long-read ======================= */
-.saga[data-style="long-read"] .prose > h2#by-the-numbers + ul + h2 + p::first-letter { float: left; font-family: var(--display); font-size: 74px; line-height: .82; padding: 8px 10px 0 0; color: var(--accent); }
-.saga[data-style="long-read"] .prose > h2 { font-size: 30px; margin-top: 36px; }
+/* The drop cap opens the author's first answer, never Sam's question ahead of it. */
+.saga[data-style="long-read"] .prose > h2#by-the-numbers + ul + h2 + p:not(:has(> strong:first-child))::first-letter,
+.saga[data-style="long-read"] .prose > h2#by-the-numbers + ul + h2 + p:has(> strong:first-child) + p::first-letter { float: left; font-family: var(--display); font-size: 74px; line-height: .82; padding: 8px 10px 0 0; color: var(--accent); }
+.saga[data-style="long-read"] .prose > h2 { font-size: 30px; margin-top: 36px; clear: both; }
 
 /* ======================= Layout: uptime-log ======================= */
 .saga[data-style="uptime-log"] .body { max-width: 860px; }
