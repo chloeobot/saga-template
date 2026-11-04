@@ -45,9 +45,7 @@
   <meta name="twitter:description" content="{{ desc | strip_html | escape }}">
     {%- endunless -%}
   {%- endif %}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+  <link rel="stylesheet" href="{{ 'assets/fonts.css' | relative_url }}">
   <link rel="stylesheet" href="{{ 'assets/saga.css' | relative_url }}">
 </head>
 <body class="saga" data-style="{{ style }}" data-palette="{{ palette }}">
