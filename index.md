@@ -3,7 +3,7 @@ layout: saga
 title: "My Saga (placeholder)"
 ---
 
-## How reliable has ElfHosted been for me? {#by-the-numbers}
+## How reliable has my ElfHosted stack been? {#by-the-numbers}
 
 - This is sample text. Your export lists plain facts here, such as how long an app was up.
 - The app was available for 99.7 percent of the time over the period shown in the chart.
@@ -17,7 +17,7 @@ This is a placeholder. Replace this file with the `index.md` from your ElfBot Sa
 
 _[Your words here: What has been solid for you?]_
 
-## Does it go down, and what happens when something breaks?
+## What goes wrong, and how does it get fixed?
 
 _[Your words here: What broke, and how was it sorted out?]_
 
