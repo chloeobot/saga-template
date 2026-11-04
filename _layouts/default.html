@@ -58,6 +58,17 @@
   <main id="content" class="body">
     {{ content }}
 
+    {%- assign share_url = page.url | absolute_url -%}
+    {%- assign share_title = page.title | default: saga.title | default: site.title -%}
+    <nav class="share" aria-label="Share this Saga">
+      <span>Share it</span>
+      <a rel="nofollow noopener" href="https://bsky.app/intent/compose?text={{ share_title | append: ' ' | append: share_url | url_encode }}">Bluesky</a>
+      <a rel="nofollow noopener" href="https://twitter.com/intent/tweet?text={{ share_title | url_encode }}&amp;url={{ share_url | url_encode }}">X</a>
+      <a rel="nofollow noopener" href="https://www.reddit.com/submit?url={{ share_url | url_encode }}&amp;title={{ share_title | url_encode }}">Reddit</a>
+      <a rel="nofollow noopener" href="https://www.linkedin.com/sharing/share-offsite/?url={{ share_url | url_encode }}">LinkedIn</a>
+      <a rel="nofollow noopener" href="https://www.facebook.com/sharer/sharer.php?u={{ share_url | url_encode }}">Facebook</a>
+    </nav>
+
     <footer class="foot">
       <p>Published by the author on their own site. Made with the <a href="https://github.com/elfhosted/saga-template">ElfHosted Saga template</a>.</p>
     </footer>
