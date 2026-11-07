@@ -1,6 +1,10 @@
 ---
 layout: saga
 title: "My Saga (placeholder)"
+# The template's own page: kept out of search engines and the sitemap until
+# your Saga's index.md replaces this file.
+placeholder: true
+sitemap: false
 ---
 
 ## How reliable has my ElfHosted stack been? {#by-the-numbers}
